@@ -33,26 +33,28 @@
       
       // The vertical location of the ball.
       var y = 10;
+      var ballSpeed = 2;
       // A function to repeat every time the animation loops.
       function repeatme() {
 
         ctx.clearRect(0, 0, 200, 200);
         // Draw the ball (stroked, not filled).
         ctx.beginPath();
-        ctx.arc(50, y, 3, 0, 2 * Math.PI);
+        ctx.arc(50, y, 10, 0, 2 * Math.PI);
         ctx.stroke();
         
         
         // Update the y location.
-        y += 2;
+        y += ballSpeed;
 
-        if(y >= canvas.height) {
-            y = 0;
+        if(y + 10 < 200 ) {
+            y += ballSpeed;
+            window.requestAnimationFrame(repeatme);
         }
         
         
         
-        window.requestAnimationFrame(repeatme);
+        //window.requestAnimationFrame(repeatme);
 
         
       }
