@@ -27,9 +27,7 @@
       // Gets a handle to the element with id canvasOne.
       var canvas = document.getElementById("canvas-for-ball");
       // Get a 2D context for the canvas.
-      var ctx = canvas.getContext("2d");
-
-      
+      var ctx = canvas.getContext("2d");  
       
       // The vertical location of the ball.
       var y = 10;
@@ -43,25 +41,19 @@
         ctx.arc(50, y, 10, 0, 2 * Math.PI);
         ctx.stroke();
         
-        
         // Update the y location.
+        ballSpeed += 0.5;//gravity
         y += ballSpeed;
 
-        if(y + 10 < 200 ) {
-            y += ballSpeed;
-            window.requestAnimationFrame(repeatme);
+        if(y + 10 > 200 ) {
+            y = 200 - 10;
+            ballSpeed = -ballSpeed; //* 0.7;//bounce factor to reduce its speed
         }
-        
-        
-        
-        //window.requestAnimationFrame(repeatme);
-
-        
+        window.requestAnimationFrame(repeatme);
       }
       
       // Get the animation going.
       repeatme();
-
 
     </script>
 
