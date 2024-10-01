@@ -23,39 +23,54 @@
   <canvas id="canvas-for-ball" width="200" height="200"></canvas>
 
   <script type="text/javascript">
-    // Get a handle to the element with id canvas-for-ball.
+    // Ball class definition
+    class Ball {
+      constructor(x, y, radius, xVelocity, yVelocity) {
+        this.x = x;               // x position of the ball
+        this.y = y;               // y position of the ball
+        this.radius = radius;     // radius of the ball
+        this.xVelocity = xVelocity; // velocity in the x direction
+        this.yVelocity = yVelocity; // velocity in the y direction
+      }
+
+      // Draws the ball on the canvas
+      draw(ctx) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Moves the ball by updating its position based on velocity
+      move(canvasWidth, canvasHeight) {
+        this.x += this.xVelocity;
+        this.y += this.yVelocity;
+
+        // Check for collision with the left or right edges of the canvas
+        if (this.x - this.radius <= 0 || this.x + this.radius >= canvasWidth) {
+          this.xVelocity = -this.xVelocity; // Reverse direction
+        }
+
+        // Check for collision with the top or bottom edges of the canvas
+        if (this.y - this.radius <= 0 || this.y + this.radius >= canvasHeight) {
+          this.yVelocity = -this.yVelocity; // Reverse direction
+        }
+      }
+    }
+
+    // Get a handle to the canvas element and its 2D context
     var canvas = document.getElementById("canvas-for-ball");
-    // Get a 2D context for the canvas.
     var ctx = canvas.getContext("2d");
 
-    // The vertical location of the ball.
-    var y = 10;        // Initial position
-    var ballSpeed = 2; // Speed of the ball
-    
+    // Create a ball object with initial position, radius, and velocity
+    var ball = new Ball(50, 50, 10, 2, 2); // x, y, radius, xVelocity, yVelocity
 
-    // A function to repeat every time the animation loops.
+    // A function to repeat the animation loop
     function repeatme() {
-      ctx.clearRect(0, 0, 200, 200); // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
-      // Draw the ball
-      ctx.beginPath();
-      ctx.arc(50, y, 10, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      // Update the y location
-      y += ballSpeed;
-
-      // Check for bottom of canvas
-      if (y + 10 >= 200) {
-        y = 200 - 10; 
-        ballSpeed = -ballSpeed; // Reverse direction to go up
-      }
-
-      // Check for top of canvas
-      if (y - 10 <= 0) {
-        y = 10; 
-        ballSpeed = -ballSpeed; // Reverse direction to go down
-      }
+      // Move the ball and draw it
+      ball.move(canvas.width, canvas.height);
+      ball.draw(ctx);
 
       // Continue the animation
       window.requestAnimationFrame(repeatme);
