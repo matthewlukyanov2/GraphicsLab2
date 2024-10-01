@@ -41,25 +41,24 @@
                 ctx.stroke();
 
                 // Draw the peace sign inner lines
-                // Vertical line
+                // Vertical line (center of peace sign)
                 ctx.beginPath();
-                ctx.moveTo(0, -this.radius); // Top of the circle
-                ctx.lineTo(0, this.radius); // Bottom of the circle
+                ctx.moveTo(0, -this.radius); // From top
+                ctx.lineTo(0, this.radius * 0.5); // To middle of the circle
                 ctx.stroke();
 
-                // Diagonal lines
-                // Left diagonal (45 degrees)
+                // Left diagonal line (bottom left of the peace sign)
                 ctx.beginPath();
-                let leftAngle = Math.PI / 4;
-                ctx.moveTo(0, 0); // Center
-                ctx.lineTo(-Math.cos(leftAngle) * this.radius, Math.sin(leftAngle) * this.radius); // Left diagonal
+                let angle1 = (5 * Math.PI) / 4; // Angle for left diagonal
+                ctx.moveTo(0, this.radius * 0.5); // Start from middle of the circle
+                ctx.lineTo(Math.cos(angle1) * this.radius, Math.sin(angle1) * this.radius); // To the bottom left
                 ctx.stroke();
 
-                // Right diagonal (-45 degrees)
+                // Right diagonal line (bottom right of the peace sign)
                 ctx.beginPath();
-                let rightAngle = -Math.PI / 4;
-                ctx.moveTo(0, 0); // Center
-                ctx.lineTo(Math.cos(rightAngle) * this.radius, Math.sin(rightAngle) * this.radius); // Right diagonal
+                let angle2 = (7 * Math.PI) / 4; // Angle for right diagonal
+                ctx.moveTo(0, this.radius * 0.5); // Start from middle of the circle
+                ctx.lineTo(Math.cos(angle2) * this.radius, Math.sin(angle2) * this.radius); // To the bottom right
                 ctx.stroke();
 
                 ctx.restore(); // Restore the original context (removes the translation and rotation)
